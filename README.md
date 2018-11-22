@@ -77,6 +77,11 @@ Metodi:
 * ``` put(String key, String name)``` Metodo per inserire un elemento nel dizionario, con chiave _key_ e valore _name_.
 * ``` get(String key)``` Metodo per ottenere un valore di tipo Stringa, data la chiave _key_.
 
+##### RainbowHatDictManager
+La classe RainbowHatDictManager serve per gestire i dizionari contenenti le associazioni **_indirizzo - id_** dove:
+* **_indirizzo_** è il valore (espresso in esadecimale) dell'indirizzo nel bus I2C in cui è collegato uno specifico componente.
+* **_id_** è l'identificativo, di facile memorizzazion, scelto per il componente.
+
 
 
 

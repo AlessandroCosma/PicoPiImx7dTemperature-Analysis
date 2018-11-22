@@ -19,7 +19,42 @@ Nella seconda versione dell'applicazione [PicoPiImx7dTemperature_v2](https://git
 
 Questa fase ha lo scopo di memorizzare le componenti collegate, andando a salvarle in memoria con degli identificativi univoci, ma di facile memorizzazione, rispetto alle stringhe per gli indirizzi, porte e bus che di default servono per identificare un dato componente.
 
+### Implementazione
 
+Attualmente la scansione delle componenti riguarda 3 differenti tipologie: GPIO, PWM, I2C.
+
+##### esempio: executei2cScan()
+Prendiamo come esempio la procedura per la scansione delle componenti i2c, presenti nel RainbowHat.
+Il metodo che implementa la scansione è executei2cScan(); di seguito il codice:
+
+
+```java
+  private void executei2cScan(){
+        String hexAddress;
+        String name;
+        for (int address = 0; address < 127; address++) {
+            //try-with-resources: auto-close the devices
+            try (final I2cDevice device = mPeripheralManager.openI2cDevice(DEFAULT_I2C_BUS, address)) {
+                try {
+                    hexAddress = Integer.toHexString(address);
+                    device.readRegByte(0x0);
+                    name = RainbowHatDictManager.getDictionaryI2C().get(hexAddress);
+                    if (name != null)
+                        Log.i("i2cScanner", "Trying: "+hexAddress+" - SUCCESS -> device name = "+name);
+                } catch (final IOException e) {
+                    //Log.i("i2cScanner", "Trying: "+address+" - FAIL");
+                }
+            } catch (final IOException e) {
+                //in case address not exists, openI2cDevice() generates an exception
+            }
+        }
+    }
+ ```
+Questo metodo, cicla su tutti i 128 indirizzi disponibili nel bus i2c, e per ognuno di essi:
+* apre la connessione verso un dato indirizzo: ```java mPeripheralManager.openI2cDevice(DEFAULT_I2C_BUS, address)```
+* prova a leggere un byte da quelll'indirizzo: ```java device.readRegByte(0x0);```
+* se riceve un ACK di ritorno allora vuol dire che il dispositivo connesso al bus I2C e assegnato a quell'indirizzo esiste.
+  Altrimenti viene lanciata e gestita un'eccezione e il ciclo continua.
 
 
 ### Classe RainbowHatDictionary e RainbowHatDictManager

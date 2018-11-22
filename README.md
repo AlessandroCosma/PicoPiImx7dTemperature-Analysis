@@ -127,8 +127,8 @@ Analogamente, nel caso di apertura di una connessione con il led rosso, si avrà
 @OutputComponent(type = "GPIO", name = "RED_LED")
 public static Gpio openLedRed()
 ```
-Infatti nella classe [RainbowHatDictManager](https://github.com/AlessandroCosma/PicoPiImx7dTemperature_v2/blob/master/app/src/main/java/com/alessandrocosma/picopiimx7dtemperature/RainbowHatDictManager.java) il dizionario ```dictionaryGPIO``` associa all'identificativo per il led rosso, che è GPIO2_IO02 il nome RED_LED.
+Infatti nella classe [RainbowHatDictManager](https://github.com/AlessandroCosma/PicoPiImx7dTemperature_v2/blob/master/app/src/main/java/com/alessandrocosma/picopiimx7dtemperature/RainbowHatDictManager.java) il dizionario ```dictionaryGPIO``` associa all'identificativo per il led rosso, che è GPIO2_IO02, il nome RED_LED.
 
-Quindi nel momento in cui è presente l'associzione ```@OutputComponent(type = "GPIO", name = "RED_LED") ``` l'analizzatore sa che viene aperta una connessione con un componente GPIO, il cui nome è RED_LED e la cui porta ha identificativo GPIO2_IO02.
+Quindi nel momento in cui è presente l'associzione ```@OutputComponent(type = "GPIO", name = "RED_LED") ``` l'analizzatore sa che viene aperta una connessione con un componente GPIO, il cui nome è RED_LED e la cui porta è GPIO2_IO02.
 
 

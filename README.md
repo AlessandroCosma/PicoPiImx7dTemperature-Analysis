@@ -32,7 +32,7 @@ Il metodo che implementa la scansione è executei2cScan(); di seguito il codice:
 private void executei2cScan(){
   String hexAddress;
   String name;
-  for (int address = 0; address < 127; address++) {
+  for (int address = 0; address <= 127; address++) {
     //try-with-resources: auto-close the devices
     try (final I2cDevice device = mPeripheralManager.openI2cDevice(DEFAULT_I2C_BUS, address)) {
       try {
@@ -46,6 +46,7 @@ private void executei2cScan(){
       }
     } catch (final IOException e) {
         // In case address not exists, openI2cDevice() generates an exception
+        Log.e(TAG, "address "+address +" doesn't exist!");
     }
   }
 }
@@ -64,7 +65,7 @@ Ovvero: com'è possibile sapere se l'ACK di ritorno proviene da un sensore di te
 
 Per risolvere tale problema sono state introdotte le classi RainbowHatDictionary e RainbowHatDictManager.
 
-##### RainbowHatDictionary
+#### RainbowHatDictionary
   La classe RainbowHatDictionary rappresenta un dizionario implementato con HashMap<String, String>.
 
   Costruttori:
@@ -78,7 +79,7 @@ Per risolvere tale problema sono state introdotte le classi RainbowHatDictionary
   * ``` get(String key)``` Metodo per ottenere un valore di tipo Stringa, data la chiave _key_.
 
 
-##### RainbowHatDictManager
+#### RainbowHatDictManager
   La classe RainbowHatDictManager serve per gestire i dizionari contenenti le associazioni **_indirizzo - id_** dove:
   * **_indirizzo_** è il valore dell'indirizzo (I2C) o della porta (GPIO o PWM) a cui è collegato uno specifico componente.
   * **_id_** è l'identificativo univoco, di facile memorizzazion, scelto per il componente.

@@ -113,7 +113,7 @@ All'interno di questo dizionario gli identificativi scelti sono univochi.
 ### Annotazioni per Julia Analyzer
 L'introduzione di questa fase iniziale di bootstrap e quindi l'identificazione delle componenti tramite nomi univoci di facile memorizzazione, ha come scopo principale il supporto alle annotazioni per l'analizzatore Julia.
 
-Nel momento in cui si apre la connessione con un dato componente, si possono utilizzare questi nomi all'interno delle annotazioni ```@inputComponent``` e ```@outputComponent```
+Nel momento in cui si apre la connessione con un dato componente, si possono utilizzare questi nomi all'interno delle annotazioni (**da implementare**) ```@inputComponent``` e ```@outputComponent```
 
 Per esempio nel caso si voglia aprire una connessione con il display alfanumerico HT16K33, il cui identificativo all'interno del dizionario dictionaryI2C è SEGMENT_DISPLAY, il programmatore può annotare il codice con la seguente annotazione:
 ```java

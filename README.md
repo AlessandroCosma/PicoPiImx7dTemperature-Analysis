@@ -23,7 +23,7 @@ Questa fase ha lo scopo di memorizzare le componenti collegate al RainbowHat, an
 
 Attualmente la scansione delle componenti riguarda 3 differenti tipologie: GPIO, PWM, I2C.
 
-#### esempio: executei2cScan()
+##### esempio: executei2cScan()
 Prendiamo come esempio la procedura per la scansione delle componenti i2c, presenti nel RainbowHat.
 Il metodo che implementa la scansione è executei2cScan(); di seguito il codice:
 
@@ -64,7 +64,19 @@ Ovvero: com'è possibile sapere se l'ACK di ritorno proviene da un sensore di te
 
 Per risolvere tale problema sono state introdotte le classi RainbowHatDictionary e RainbowHatDictManager.
 
-**RainbowHatDictionary**
+##### RainbowHatDictionary
 La classe RainbowHatDictionary rappresenta un dizionario implementato con HashMap<String, String>.
+
+Costruttori:
+
+* ``` RainbowHatDictionary()``` costruttore che crea un dizionario vuoto.
+* ``` RainbowHatDictionary(int initialiCapacity)``` Costruttore che crea un dizionario con una certa capacità iniziale
+
+Metodi:
+
+* ``` put(String key, String name)``` Metodo per inserire un elemento nel dizionario, con chiave _key_ e valore _name_.
+* ``` get(String key)``` Metodo per ottenere un valore di tipo Stringa, data la chiave _key_.
+
+
 
 

@@ -51,8 +51,8 @@ Il metodo che implementa la scansione è executei2cScan(); di seguito il codice:
     }
  ```
 Questo metodo, cicla su tutti i 128 indirizzi disponibili nel bus i2c, e per ognuno di essi:
-* apre la connessione verso un dato indirizzo: ```java mPeripheralManager.openI2cDevice(DEFAULT_I2C_BUS, address)```
-* prova a leggere un byte da quelll'indirizzo: ```java device.readRegByte(0x0);```
+* apre la connessione verso un dato indirizzo: ``` mPeripheralManager.openI2cDevice(DEFAULT_I2C_BUS, address)```
+* prova a leggere un byte da quelll'indirizzo: ``` device.readRegByte(0x0);```
 * se riceve un ACK di ritorno allora vuol dire che il dispositivo connesso al bus I2C e assegnato a quell'indirizzo esiste.
   Altrimenti viene lanciata e gestita un'eccezione e il ciclo continua.
 

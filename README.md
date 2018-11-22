@@ -42,10 +42,10 @@ Il metodo che implementa la scansione è executei2cScan(); di seguito il codice:
                     if (name != null)
                         Log.i("i2cScanner", "Trying: "+hexAddress+" - SUCCESS -> device name = "+name);
                 } catch (final IOException e) {
-                    //Log.i("i2cScanner", "Trying: "+address+" - FAIL");
+                    Log.i("i2cScanner", "Trying: "+address+" - FAIL");
                 }
             } catch (final IOException e) {
-                //in case address not exists, openI2cDevice() generates an exception
+                // In case address not exists, openI2cDevice() generates an exception
             }
         }
     }
@@ -65,23 +65,24 @@ Ovvero: com'è possibile sapere se l'ACK di ritorno proviene da un sensore di te
 Per risolvere tale problema sono state introdotte le classi RainbowHatDictionary e RainbowHatDictManager.
 
 ##### RainbowHatDictionary
-La classe RainbowHatDictionary rappresenta un dizionario implementato con HashMap<String, String>.
+  La classe RainbowHatDictionary rappresenta un dizionario implementato con HashMap<String, String>.
 
-Costruttori:
+  Costruttori:
 
-* ``` RainbowHatDictionary()``` costruttore che crea un dizionario vuoto.
-* ``` RainbowHatDictionary(int initialiCapacity)``` Costruttore che crea un dizionario con una certa capacità iniziale
+  * ``` RainbowHatDictionary()``` costruttore che crea un dizionario vuoto.
+  * ``` RainbowHatDictionary(int initialiCapacity)``` Costruttore che crea un dizionario con una certa capacità iniziale
 
-Metodi:
+  Metodi:
 
-* ``` put(String key, String name)``` Metodo per inserire un elemento nel dizionario, con chiave _key_ e valore _name_.
-* ``` get(String key)``` Metodo per ottenere un valore di tipo Stringa, data la chiave _key_.
+  * ``` put(String key, String name)``` Metodo per inserire un elemento nel dizionario, con chiave _key_ e valore _name_.
+  * ``` get(String key)``` Metodo per ottenere un valore di tipo Stringa, data la chiave _key_.
+
 
 ##### RainbowHatDictManager
-La classe RainbowHatDictManager serve per gestire i dizionari contenenti le associazioni **_indirizzo - id_** dove:
-* **_indirizzo_** è il valore (espresso in esadecimale) dell'indirizzo nel bus I2C in cui è collegato uno specifico componente.
-* **_id_** è l'identificativo, di facile memorizzazion, scelto per il componente.
+  La classe RainbowHatDictManager serve per gestire i dizionari contenenti le associazioni **_indirizzo - id_** dove:
+  * **_indirizzo_** è il valore dell'indirizzo (I2C) o della porta (GPIO o PWM) a cui è collegato uno specifico componente.
+  * **_id_** è l'identificativo univoco, di facile memorizzazion, scelto per il componente.
 
-
+Attraverso queste due classi, è possibile implementare e popolare dizionari contenenti l'assoziazione fra le porte/indirizzi che identificano uno specifico componente nel RainbowHat e gli identificativi scelti per 
 
 

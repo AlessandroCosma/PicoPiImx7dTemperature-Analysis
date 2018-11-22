@@ -132,3 +132,7 @@ Infatti nella classe [RainbowHatDictManager](https://github.com/AlessandroCosma/
 Quindi nel momento in cui è presente l'associzione ```@OutputComponent(type = "GPIO", name = "RED_LED") ``` l'analizzatore sa che viene aperta una connessione con un componente GPIO, il cui nome è RED_LED e la cui porta è GPIO2_IO02.
 
 
+## 2) Android Architecture Components e CloseResource Checker
+
+
+

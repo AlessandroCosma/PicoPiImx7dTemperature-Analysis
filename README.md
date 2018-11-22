@@ -65,23 +65,23 @@ Ovvero: com'è possibile sapere se l'ACK di ritorno proviene da un sensore di te
 Per risolvere tale problema sono state introdotte le classi RainbowHatDictionary e RainbowHatDictManager.
 
 ##### RainbowHatDictionary
-La classe RainbowHatDictionary rappresenta un dizionario implementato con HashMap<String, String>.
+  La classe RainbowHatDictionary rappresenta un dizionario implementato con HashMap<String, String>.
 
-Costruttori:
+  Costruttori:
 
-* ``` RainbowHatDictionary()``` costruttore che crea un dizionario vuoto.
-* ``` RainbowHatDictionary(int initialiCapacity)``` Costruttore che crea un dizionario con una certa capacità iniziale
+  * ``` RainbowHatDictionary()``` costruttore che crea un dizionario vuoto.
+  * ``` RainbowHatDictionary(int initialiCapacity)``` Costruttore che crea un dizionario con una certa capacità iniziale
 
-Metodi:
+  Metodi:
 
-* ``` put(String key, String name)``` Metodo per inserire un elemento nel dizionario, con chiave _key_ e valore _name_.
-* ``` get(String key)``` Metodo per ottenere un valore di tipo Stringa, data la chiave _key_.
+  * ``` put(String key, String name)``` Metodo per inserire un elemento nel dizionario, con chiave _key_ e valore _name_.
+  * ``` get(String key)``` Metodo per ottenere un valore di tipo Stringa, data la chiave _key_.
 
 
 ##### RainbowHatDictManager
-La classe RainbowHatDictManager serve per gestire i dizionari contenenti le associazioni **_indirizzo - id_** dove:
-* **_indirizzo_** è il valore dell'indirizzo (I2C) o della porta (GPIO o PWM) a cui è collegato uno specifico componente.
-* **_id_** è l'identificativo univoco, di facile memorizzazion, scelto per il componente.
+  La classe RainbowHatDictManager serve per gestire i dizionari contenenti le associazioni **_indirizzo - id_** dove:
+  * **_indirizzo_** è il valore dell'indirizzo (I2C) o della porta (GPIO o PWM) a cui è collegato uno specifico componente.
+  * **_id_** è l'identificativo univoco, di facile memorizzazion, scelto per il componente.
 
 
 Attraverso queste due classi, è possibile implementare e popolare dizionari contenenti l'assoziazione fra le porte/indirizzi che identificano uno specifico componente nel RainbowHat e gli identificativi scelti.
@@ -92,6 +92,26 @@ Attraverso queste due classi, è possibile implementare e popolare dizionari con
 Il RainbowHat ha installato 2 dispositivi i2C:
 * **Bmp280** sensore di pressione e temperatura, a cui è assegnato di default l'indirizzo slave 0x77.
 * **HT16K33** display alfanumerico a 14 segmenti, a cui è assegnato di default l'indirizzo slave 0x70.
+
+Il dizionario dictionaryI2C viene implementato nel modo seguente:
+```java
+private static RainbowHatDictionary dictionaryI2C = new RainbowHatDictionary(2){
+    {
+        put(Integer.toHexString(0x77), "TEMP_SENSOR");
+        put(Integer.toHexString(0x70), "SEGMENT_DISPALY");
+    }
+};
+```
+Si può notare come il dizionario associ al sensore di temperatura, posizionato all'indirizzo 0x77 del bus I2C, l'identificativo **_TEMP_SENSOR_**, e al display alfanumerico a 14 segmenti, posizionato all'indirizzo 0x70 del bus I2C, l'identificativo **_SEGMENT_DIPLAY_**.
+
+All'interno di questo dizionario gli identificativi scelti sono univochi.
+
+
+**OSSERVAZIONE**: avendo un numero limitato di dispositivi I2C che possono essere connessi come slave al bus I2C di RainbowHat (al più 128), i nomi scelti come identificativi possono ben rispecchiare il dispositivo che vanno ad identificare. 
+
+
+
+
 
 
 

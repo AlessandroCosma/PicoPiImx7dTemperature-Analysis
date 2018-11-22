@@ -83,6 +83,14 @@ Per risolvere tale problema sono state introdotte le classi RainbowHatDictionary
   * **_indirizzo_** è il valore dell'indirizzo (I2C) o della porta (GPIO o PWM) a cui è collegato uno specifico componente.
   * **_id_** è l'identificativo univoco, di facile memorizzazion, scelto per il componente.
 
-Attraverso queste due classi, è possibile implementare e popolare dizionari contenenti l'assoziazione fra le porte/indirizzi che identificano uno specifico componente nel RainbowHat e gli identificativi scelti per 
+Attraverso queste due classi, è possibile implementare e popolare dizionari contenenti l'assoziazione fra le porte/indirizzi che identificano uno specifico componente nel RainbowHat e gli identificativi scelti.
+
+##### esempio: dictionaryI2C
+```dictionaryI2C``` è un dizionario che raccoglie le associazioni tra gli indirizzi esadecimali, assegnati di default, di un dato componente I2C e il nome univoco scelto per quel componente.
+
+Il RainbowHat ha installato 2 dispositivi i2C:
+* **Bmp280** sensore di pressione e temperatura, a cui è assegnato di default l'indirizzo slave 0x77.
+* **HT16K33** display alfanumerico  a 14 segmenti, a cui è assegnato di default l'indirizzo slave 0x70.
+
 
 

@@ -13,8 +13,7 @@ Valori di default:
 - NORMAL_TEMPERATURE = 24°C
 
 
-## Introduzione fase di bootstrap iniziale
-
+## 1) Introduzione di una fase di bootstrap iniziale
 Nella seconda versione dell'applicazione [PicoPiImx7dTemperature_v2](https://github.com/AlessandroCosma/PicoPiTemperature_v2) oltre all'introduzione dell Android Architecture Components (AAC), è stata aggiunta una fase iniziale di bootstrap, nella quale viene eseguita una scansione di tutte le componenti collegate al RainbowHat.
 
 Questa fase ha lo scopo di memorizzare le componenti collegate al RainbowHat, andando a salvarle in memoria. Il salvataggio avviene tramite degli identificativi univoci, ma di facile memorizzazione, rispetto alle stringhe per gli indirizzi, porte e bus che di default servono per identificare un dato componente.
@@ -110,6 +109,12 @@ All'interno di questo dizionario gli identificativi scelti sono univochi.
 
 **OSSERVAZIONE**: avendo un numero limitato di dispositivi I2C che possono essere connessi come slave al bus I2C di RainbowHat (al più 128), i nomi scelti come identificativi possono ben rispecchiare il dispositivo che vanno ad identificare. 
 
+
+### Annotazioni per Julia Analyzer
+L'introduzione di questa fase iniziale di bootstrap e quindi l'identificazione delle componenti tramite nomi univoci di facile memorizzazione, ha come scopo principale il supporto alle annotazioni per l'analizzatore Julia.
+
+Nel momento in cui si apre la connessione con un dato componente, si possono utilizzare questi nomi all'interno delle annotazioni ```@inputComponent``` e ```@outputComponent```
+```
 
 
 

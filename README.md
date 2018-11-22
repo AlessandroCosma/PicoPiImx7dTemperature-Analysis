@@ -115,19 +115,20 @@ L'introduzione di questa fase iniziale di bootstrap e quindi l'identificazione d
 
 Nel momento in cui si apre la connessione con un dato componente, si possono utilizzare questi nomi all'interno delle annotazioni ```@inputComponent``` e ```@outputComponent```
 
-Per esempio nel caso si voglia aprire una connessione con il display alfanumerico HT16K33, il cui identificativo all'interno del dizionario dictionaryI2C è SEGMENT_DISPLAY, il programmatore può annotare il codice conm la seguente annotazione:
+Per esempio nel caso si voglia aprire una connessione con il display alfanumerico HT16K33, il cui identificativo all'interno del dizionario dictionaryI2C è SEGMENT_DISPLAY, il programmatore può annotare il codice con la seguente annotazione:
 ```java
 @OutputComponent(type = "I2C", name = "SEGMENT_DISPLAY")
 public static AlphanumericDisplay openDisplay() throws IOException {
 	return new AlphanumericDisplay(BOARD.getI2cBus());
 }
 ```
+Analogamente, nel caso di apertura di una connessione con il led rosso, si avrà la seguente annotazione:
+```java
+@OutputComponent(type = "GPIO", name = "RED_LED")
+public static Gpio openLedRed()
+```
+Infatti nella classe [RainbowHatDictManager](https://github.com/AlessandroCosma/PicoPiImx7dTemperature_v2/blob/master/app/src/main/java/com/alessandrocosma/picopiimx7dtemperature/RainbowHatDictManager.java) il dizionario ```dictionaryGPIO``` associa all'identificativo per il led rosso, che è GPIO2_IO02 il nome RED_LED.
 
-
-
-
-
-
-
+Quindi nel momento in cui è presente l'associzione ```@OutputComponent(type = "GPIO", name = "RED_LED") ``` l'analizzatore sa che viene aperta una connessione con un componente GPIO, il cui nome è RED_LED e la cui porta ha identificativo GPIO2_IO02.
 
 

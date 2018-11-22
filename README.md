@@ -1,4 +1,4 @@
-# PicoPiImx7dTemperature-Analysis
+# PicoPiImx7dTemperature Analysis
 
 PicoPiImx7dTemperature è un'applicazione AndroidThings sviluppata per la piattaforma PICO-PI-IMX7-STARTKIT-WITH-RAINBOW-HAT ([link](https://shop.technexion.com/pico-pi-imx7-startkit-rainbow-hat.html) al sito del produttore).
 
@@ -63,5 +63,8 @@ Un problema non indifferente riguarda l'assegnazione di un identificativo ad un 
 Ovvero: com'è possibile sapere se l'ACK di ritorno proviene da un sensore di temperatura (es: Bmx280) piuttosto che da un sensore di umidità o da un display alfanumerico (es: HT16K33)?
 
 Per risolvere tale problema sono state introdotte le classi RainbowHatDictionary e RainbowHatDictManager.
+
+**RainbowHatDictionary**
+La classe RainbowHatDictionary rappresenta un dizionario implementato con HashMap<String, String>.
 
 

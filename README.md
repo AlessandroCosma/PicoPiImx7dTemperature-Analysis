@@ -23,7 +23,7 @@ Questa fase ha lo scopo di memorizzare le componenti collegate al RainbowHat, an
 
 Attualmente la scansione delle componenti riguarda 3 differenti tipologie: GPIO, PWM, I2C.
 
-##### esempio: executei2cScan()
+#### esempio: executei2cScan()
 Prendiamo come esempio la procedura per la scansione delle componenti i2c, presenti nel RainbowHat.
 Il metodo che implementa la scansione è executei2cScan(); di seguito il codice:
 
@@ -54,7 +54,14 @@ Questo metodo, cicla su tutti i 128 indirizzi disponibili nel bus i2c, e per ogn
 * apre la connessione verso un dato indirizzo: ``` mPeripheralManager.openI2cDevice(DEFAULT_I2C_BUS, address)```
 * prova a leggere un byte da quelll'indirizzo: ``` device.readRegByte(0x0);```
 * se riceve un ACK di ritorno allora vuol dire che il dispositivo connesso al bus I2C e assegnato a quell'indirizzo esiste.
-  Altrimenti viene lanciata e gestita un'eccezione e il ciclo continua.
+  Altrimenti viene lanciata e gestita un'eccezione, di tipo IOException e il ciclo continua.
 
+**OSSERVAZIONE:** attualmente il codice esegue solo la scanzione e il rilevamento delle componenti. Una volta che esse sono state identificate viene stampato un Log informativo nella console in cui viene specificato il nome del sispositivo rilevato.
 
 ### Classe RainbowHatDictionary e RainbowHatDictManager
+Un problema non indifferente riguarda l'assegnazione di un identificativo ad un dato componente. Infatti, quando si prova a leggere un byte da un dato indirizzo e riceviamo un ACK di ritorno, come si può sapere quale dispositivo l'ha inviato?
+Ovvero: com'è possibile sapere se l'ACK di ritorno proviene da un sensore di temperatura (es: Bmx280) piuttosto che da un sensore di umidità o da un display alfanumerico (es: HT16K33)?
+
+Per risolvere tale problema sono state introdotte le classi RainbowHatDictionary e RainbowHatDictManager.
+
+

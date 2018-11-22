@@ -115,11 +115,11 @@ L'introduzione di questa fase iniziale di bootstrap e quindi l'identificazione d
 
 Nel momento in cui si apre la connessione con un dato componente, si possono utilizzare questi nomi all'interno delle annotazioni ```@inputComponent``` e ```@outputComponent```
 
-Per esempio nel caso si voglia aprire una connessione con il sensore della temperatura Bmp280, il programmatore può annotare il codice conm la seguente annotazione:
+Per esempio nel caso si voglia aprire una connessione con il display alfanumerico HT16K33, il cui identificativo all'interno del dizionario dictionaryI2C è SEGMENT_DISPLAY, il programmatore può annotare il codice conm la seguente annotazione:
 ```java
-@OutputComponent(type = "I2Csensor", name = "Bmx280")
-public static Bmx280 openSensor() throws IOException {
-	return new Bmx280(BOARD.getI2cBus());
+@OutputComponent(type = "I2C", name = "SEGMENT_DISPLAY")
+public static AlphanumericDisplay openDisplay() throws IOException {
+	return new AlphanumericDisplay(BOARD.getI2cBus());
 }
 ```
 

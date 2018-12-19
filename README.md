@@ -149,25 +149,25 @@ L'applicazione si concentra sull'utilizzo (apertura e chiusura) della variabile 
 mI2CDevice viene dichiarato globale: 
 
 ```java
-	private I2cDevice mI2cDevice;
+private I2cDevice mI2cDevice;
 ```
 
 Nel metodo onCreate vado ad aprire una connessione: 
 
 ```java
-	try{
-		PeripheralManager mPeripheralManager = PeripheralManager.getInstance();
-       		mI2cDevice = mPeripheralManager.openI2cDevice(DEFAULT_I2C_BUS, DEFAULT_I2C_ADDRESS);
-	}
-	catch(IOException e){...}
+try{
+	PeripheralManager mPeripheralManager = PeripheralManager.getInstance();
+       	mI2cDevice = mPeripheralManager.openI2cDevice(DEFAULT_I2C_BUS, DEFAULT_I2C_ADDRESS);
+}
+catch(IOException e){...}
 ```
 	
 Nel metodo onDestroy vado a chiudere la connesione:
 
 ```java
-	try {
-    		mI2cDevice.close();
-    	} catch (IOException e) {...}
+try {
+	mI2cDevice.close();
+} catch (IOException e) {...}
 ```
 
 L'analizzatore Julia dà il seguente warning:
@@ -184,16 +184,16 @@ Cosa possiamo dire di questo warning?
 Nel caso in cui salvo mI2CDevice in locale al metodo onCreate, poi non posso fare la seguente chiamata nel metodo onDestroy:
 
 ```java
-	@Override
-    	protected void onDestroy() {
-			...
-			
-            try {
-                mI2cDevice.close();
-            } catch (IOException e) {...}
+@Override
+protected void onDestroy() {
+	...
+	
+	try {
+        	mI2cDevice.close();
+        } catch (IOException e) {...}
             
-            ...
-    }
+        ...
+}
 ```
     
 perchè la variabile mI2CDevice non rientra nello scope del metodo onDestroy.

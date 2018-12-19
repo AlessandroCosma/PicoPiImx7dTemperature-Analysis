@@ -134,5 +134,73 @@ Quindi nel momento in cui è presente l'associzione ```@OutputComponent(type = "
 
 ## 2) Android Architecture Components e CloseResource Checker
 
+Per osservare con più attenzione il comportamento del checker CloseResource di Julia, nel caso dell'utilizzo degli Android Architecture Components, si sono sviluppate 2 applicazioni di testing, che riproducono in parte il comportamento dell'appliczione PicoPiTemperature_v2.
+In PicoPiTemperature_v2, nelle classi LiveData, l'apertura delle connessioni con le componenti del PicoPi (oggetti di tipo Closeable) avviene nel metodo onActive(), mentre la loro chiusura avviene nel metodo onInactive().
+Con le applicazioni di testing si vuole quindi studiare il comportamento del checker, quando l'apertura/chiusura di connessioni con questi oggetti Closeable avviene in due metodi separati.
+
+### Applicazione PicoPiComponentTest
+
+L'applicazione è composta da una singola Activity e 2 metodi: onCreate e onDestroy.
+L'applicazione si concentra sull'utilizzo (apertura e chiusura) della variabile mI2CDevice che è un oggetto I2CDevice.
+
+mI2CDevice viene dichiarato globale: 
+
+```java
+	private I2cDevice mI2cDevice;
+```
+
+Nel metodo onCreate vado ad aprire una connessione: 
+
+```java
+	try{
+		PeripheralManager mPeripheralManager = PeripheralManager.getInstance();
+       		mI2cDevice = mPeripheralManager.openI2cDevice(DEFAULT_I2C_BUS, DEFAULT_I2C_ADDRESS);
+	}
+	catch(IOException e){...}
+```
+	
+Nel metodo onDestroy vado a chiudere la connesione:
+
+```java
+	try {
+    		mI2cDevice.close();
+    	} catch (IOException e) {...}
+```
+
+L'analizzatore Julia dà il seguente warning:
+
+warningDescriptio:	a closeable has not been immediately stored into a local variable
+warningMessage:		Instances of class "I2cDevice" should be immediately stored into a local variable, for later being closed
+
+
+Cosa possiamo dire di questo warning?
+* Julia non si accorge che viene chiuso nel metodo onDestroy?
+* Julia se ne accorge ma ritiene che sia più corretto salvare mI2CDevice in locale al metodo e chiuderlo li? (quindi un falso allarme)
+
+
+Nel caso in cui salvo mI2CDevice in locale al metodo onCreate, poi non posso fare la seguente chiamata nel metodo onDestroy:
+
+```java
+	@Override
+    	protected void onDestroy() {
+			...
+			
+            try {
+                mI2cDevice.close();
+            } catch (IOException e) {...}
+            
+            ...
+    }
+```
+    
+perchè la variabile mI2CDevice non rientra nello scope del metodo onDestroy.
+
+Nel caso di dispositivi di output, l'idea sarebbe quella di aprire la connesione verso un determinato componente X nel metodo onCreate, assegnadno tale istanza alla variabile x1, settare il valore per il componente X, chiamando il metodo x1.setValue(); successivamente chiuderlo.
+Successivamente, nel metodo onDestroy, riaprire la connessione con la componente X assegnando la nuova istanza alla variabile x2, settare il valore che si vuole attribuire a X all'uscita dell'applicazione e chiudere nuovamente la connesione.
+
+Questo procedura è limitata alle componenti di output, ad esempio un led o un allarme attivo, i quali una volta settato un certo valore (es: setValue(true)) lo mantengono fino a quando non viene nuovamente settato il un valore (setValue(false)).
+
+In questo caso è essenziale separare i 2 concetti: apertura e chiusura di una connessione rispetto all'apertura e chiusura della funzionalità del componente connesso.
+
 
 

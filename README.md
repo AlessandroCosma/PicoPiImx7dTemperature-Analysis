@@ -135,12 +135,15 @@ Quindi nel momento in cui è presente l'associzione ```@OutputComponent(type = "
 ## 2) Android Architecture Components e CloseResource Checker
 
 Per osservare con più attenzione il comportamento del checker CloseResource di Julia, nel caso dell'utilizzo degli Android Architecture Components, si sono sviluppate 2 applicazioni di testing, che riproducono in parte il comportamento dell'appliczione PicoPiTemperature_v2.
+
 In PicoPiTemperature_v2, nelle classi LiveData, l'apertura delle connessioni con le componenti del PicoPi (oggetti di tipo Closeable) avviene nel metodo onActive(), mentre la loro chiusura avviene nel metodo onInactive().
+
 Con le applicazioni di testing si vuole quindi studiare il comportamento del checker, quando l'apertura/chiusura di connessioni con questi oggetti Closeable avviene in due metodi separati.
 
 ### Applicazione PicoPiComponentTest
 
 L'applicazione è composta da una singola Activity e 2 metodi: onCreate e onDestroy.
+
 L'applicazione si concentra sull'utilizzo (apertura e chiusura) della variabile mI2CDevice che è un oggetto I2CDevice.
 
 mI2CDevice viene dichiarato globale: 

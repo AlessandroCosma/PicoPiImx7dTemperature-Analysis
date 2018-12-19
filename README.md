@@ -171,10 +171,10 @@ Nel metodo onDestroy vado a chiudere la connesione:
 ```
 
 L'analizzatore Julia dà il seguente warning:
-
+```
 warningDescriptio:	a closeable has not been immediately stored into a local variable
 warningMessage:		Instances of class "I2cDevice" should be immediately stored into a local variable, for later being closed
-
+```
 
 Cosa possiamo dire di questo warning?
 * Julia non si accorge che viene chiuso nel metodo onDestroy?
@@ -199,6 +199,7 @@ Nel caso in cui salvo mI2CDevice in locale al metodo onCreate, poi non posso far
 perchè la variabile mI2CDevice non rientra nello scope del metodo onDestroy.
 
 Nel caso di dispositivi di output, l'idea sarebbe quella di aprire la connesione verso un determinato componente X nel metodo onCreate, assegnadno tale istanza alla variabile x1, settare il valore per il componente X, chiamando il metodo x1.setValue(); successivamente chiuderlo.
+
 Successivamente, nel metodo onDestroy, riaprire la connessione con la componente X assegnando la nuova istanza alla variabile x2, settare il valore che si vuole attribuire a X all'uscita dell'applicazione e chiudere nuovamente la connesione.
 
 Questo procedura è limitata alle componenti di output, ad esempio un led o un allarme attivo, i quali una volta settato un certo valore (es: setValue(true)) lo mantengono fino a quando non viene nuovamente settato il un valore (setValue(false)).

@@ -251,6 +251,6 @@ Se si prova invece a chiudere la risorsa con un metodo dedicato ```myCloseMethod
 osserviamo che l'analizzatore emette il warning seguente:
 ```
 warningDescription:	a resource should be closed by the end of the method where it is created
-warningMessage		This instance of class "I2cDevice" does not seem to be always closed by the end of this method. It seems 			 leaked if an exception occurs at line 47 before being closed
+warningMessage		This instance of class "I2cDevice" does not seem to be always closed by the end of this method. It seems leaked if an exception occurs at line 47 before being closed
 ```
 

@@ -238,15 +238,15 @@ L'apertura e la chiusura della connessione con l'oggetto I2CDevice, sono interne
 
 Se si prova invece a chiudere la risorsa con un metodo dedicato ```myCloseMethod(mI2cDevice);```, che a sua volta chiama il metodo close():
 ```java
-    private void myCloseMethod(I2cDevice mDevice){
-    	if (mDevice != null) {
-    	    try {
-                mDevice.close();
-            } catch (IOException e) {
-                Log.w(TAG, "Unable to close I2C device", e);
-            }
+private void myCloseMethod(I2cDevice mDevice){
+    if (mDevice != null) {
+        try {
+            mDevice.close();
+        } catch (IOException e) {
+            Log.w(TAG, "Unable to close I2C device", e);
         }
     }
+}
 ```
 osserviamo che l'analizzatore emette il warning seguente:
 ```

@@ -198,11 +198,13 @@ protected void onDestroy() {
     
 perchè la variabile mI2CDevice non rientra nello scope del metodo onDestroy.
 
-Nel caso di dispositivi di output, l'idea sarebbe quella di aprire la connesione verso un determinato componente X nel metodo onCreate, assegnadno tale istanza alla variabile x1, settare il valore per il componente X, chiamando il metodo x1.setValue(); successivamente chiuderlo.
+Nel caso di dispositivi di output, l'idea sarebbe quella di aprire la connesione verso una determinata componente _X_ nel metodo onCreate(), assegnadno tale istanza alla variabile _x1_; settare il valore per la componente X, chiamando il metodo x1.setValue(); successivamente chiuderle la connessione.
 
-Successivamente, nel metodo onDestroy, riaprire la connessione con la componente X assegnando la nuova istanza alla variabile x2, settare il valore che si vuole attribuire a X all'uscita dell'applicazione e chiudere nuovamente la connesione.
+Prima dell'uscita dall'applicazione, nel metodo onDestroy, riaprire la connessione con la componente _X_ assegnando la nuova istanza alla variabile x2, settare il valore che si vuole attribuire a _X_ all'uscita dell'applicazione e chiudere nuovamente la connesione.
 
-Questo procedura è limitata alle componenti di output, ad esempio un led o un allarme attivo, i quali una volta settato un certo valore (es: setValue(true)) lo mantengono fino a quando non viene nuovamente settato il un valore (setValue(false)).
+Questo procedura è limitata ad alcune componenti di output, ad esempio un led o un allarme attivo, i quali una volta settato un certo valore (es: setValue(true)) lo mantengono fino a quando non viene nuovamente settato il un valore (setValue(false)).
+
+Per dispositivi di output come sensori di temperatura o pressione, i cui valori rilevati hanno necessità di essere letti in modo continuo, estendere questa procedura non sarebbe fattibile.
 
 In questo caso è essenziale separare i 2 concetti: apertura e chiusura di una connessione rispetto all'apertura e chiusura della funzionalità del componente connesso.
 

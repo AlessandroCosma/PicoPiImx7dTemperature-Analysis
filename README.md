@@ -220,17 +220,19 @@ mI2cDevice viene dichiarata e inizializzata all'interno del metodo onCreate.
 try {
     PeripheralManager mPeripheralManager = PeripheralManager.getInstance();
     mI2cDevice = mPeripheralManager.openI2cDevice(DEFAULT_I2C_BUS, DEFAULT_I2C_ADDRESS);
-    } catch (IOException e){
-    	Log.e(TAG, "Unable to access I2C device", e);
-    }
+} catch (IOException e){
+    Log.e(TAG, "Unable to access I2C device", e);
+}
 
-    if (mI2cDevice != null) {
-    	try {
-    	    mI2cDevice.close();
-    	} catch (IOException e) {
-    	    Log.w(TAG, "Unable to close I2C device", e);
-    	}
+...
+
+if (mI2cDevice != null) {
+    try {
+        mI2cDevice.close();
+    } catch (IOException e) {
+        Log.w(TAG, "Unable to close I2C device", e);
     }
+}
 ```
 
 L'apertura e la chiusura della connessione con l'oggetto I2CDevice, sono interne al metodo onCreate e Julia non emette alcun warning.

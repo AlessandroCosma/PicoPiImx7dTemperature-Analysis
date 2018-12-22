@@ -206,7 +206,7 @@ Questo procedura è limitata ad alcune componenti di output, ad esempio un led o
 
 Per dispositivi di output come sensori di temperatura o pressione, i cui valori rilevati hanno necessità di essere letti in modo continuo, estendere questa procedura non sarebbe fattibile.
 
-In questo caso è essenziale separare i 2 concetti: apertura e chiusura di una connessione rispetto all'apertura e chiusura della funzionalità del componente connesso.
+In questo caso è essenziale separare i 2 concetti: apertura e chiusura di una connessione rispetto all'attivazione/disattivazione della funzionalità del componente connesso.
 
 
 

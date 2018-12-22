@@ -156,8 +156,8 @@ Nel metodo onCreate vado ad aprire una connessione:
 
 ```java
 try{
-	PeripheralManager mPeripheralManager = PeripheralManager.getInstance();
-       	mI2cDevice = mPeripheralManager.openI2cDevice(DEFAULT_I2C_BUS, DEFAULT_I2C_ADDRESS);
+    PeripheralManager mPeripheralManager = PeripheralManager.getInstance();
+    mI2cDevice = mPeripheralManager.openI2cDevice(DEFAULT_I2C_BUS, DEFAULT_I2C_ADDRESS);
 }
 catch(IOException e){...}
 ```
@@ -166,7 +166,7 @@ Nel metodo onDestroy vado a chiudere la connesione:
 
 ```java
 try {
-	mI2cDevice.close();
+    mI2cDevice.close();
 } catch (IOException e) {...}
 ```
 
@@ -186,13 +186,13 @@ Nel caso in cui salvo mI2CDevice in locale al metodo onCreate, poi non posso far
 ```java
 @Override
 protected void onDestroy() {
-	...
+    ...
 	
-	try {
-        	mI2cDevice.close();
-        } catch (IOException e) {...}
+    try {
+       	mI2cDevice.close();
+    } catch (IOException e) {...}
             
-        ...
+    ...
 }
 ```
     
@@ -209,4 +209,48 @@ Per dispositivi di output come sensori di temperatura o pressione, i cui valori 
 In questo caso è essenziale separare i 2 concetti: apertura e chiusura di una connessione rispetto all'attivazione/disattivazione della funzionalità del componente connesso.
 
 
+### Applicazione PicoPiComponentTest2
+
+L'applicazione è composta da una singola Activity e 2 metodi: onCreate e onDestroy.
+L'applicazione si concentra sull'utilizzo (apertura e chiusura) della variabile mI2CDevice che è un oggetto I2CDevice (cioè un Closeble).
+
+mI2cDevice viene dichiarata e inizializzata all'interno del metodo onCreate.
+
+```java
+try {
+    PeripheralManager mPeripheralManager = PeripheralManager.getInstance();
+    mI2cDevice = mPeripheralManager.openI2cDevice(DEFAULT_I2C_BUS, DEFAULT_I2C_ADDRESS);
+    } catch (IOException e){
+    	Log.e(TAG, "Unable to access I2C device", e);
+    }
+
+    if (mI2cDevice != null) {
+    	try {
+    	    mI2cDevice.close();
+    	} catch (IOException e) {
+    	    Log.w(TAG, "Unable to close I2C device", e);
+    	}
+    }
+```
+
+L'apertura e la chiusura della connessione con l'oggetto I2CDevice, sono interne al metodo onCreate e Julia non emette alcun warning.
+
+
+Se si prova invece a chiudere la risorsa con un metodo dedicato ```myCloseMethod(mI2cDevice);```, che a sua volta chiama il metodo close():
+```java
+    private void myCloseMethod(I2cDevice mDevice){
+    	if (mDevice != null) {
+    	    try {
+                mDevice.close();
+            } catch (IOException e) {
+                Log.w(TAG, "Unable to close I2C device", e);
+            }
+        }
+    }
+```
+osserviamo che l'analizzatore emette il warning seguente:
+```
+warningDescription:	a resource should be closed by the end of the method where it is created
+warningMessage		This instance of class "I2cDevice" does not seem to be always closed by the end of this method. It seems 			 leaked if an exception occurs at line 47 before being closed
+```
 
